@@ -44,11 +44,18 @@ public class EditTextWithClear extends AppCompatEditText {
                     // ambil posisi,
                     // dengan cara lebar total kelas ini (edit text) dikurangi padding end dikurangi lebar button
                     float clearButtonStartPosition = (getWidth()-getPaddingEnd()-mClearButtonImage.getIntrinsicWidth());
+                    float clearButtonEndPosition = mClearButtonImage.getIntrinsicWidth() + getPaddingStart();
                     boolean isButtonClicked = false;
 
-                    // kondisional ketika touch mengenai button
-                    if (motionEvent.getX() > clearButtonStartPosition) {
-                        isButtonClicked = true;
+                    // kondisional ketika touch mengenai button, apakah rtl atau ltr
+                    if (getLayoutDirection() == LAYOUT_DIRECTION_RTL) {
+                        if (motionEvent.getX() < clearButtonEndPosition) {
+                            isButtonClicked = true;
+                        }
+                    } else {
+                        if (motionEvent.getX() > clearButtonStartPosition) {
+                            isButtonClicked = true;
+                        }
                     }
 
                     // aksi ketika ada klik, ubah warna button
